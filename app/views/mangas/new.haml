@@ -1,0 +1,7 @@
+.form
+  = form_for @manga do |f|
+    = f.text_field :title, placeholder: "タイトル"
+    = f.text_field :comment, placeholder: "コメント"
+    = f.file_field :image
+    = f.submit "送信"
+    
