@@ -4,6 +4,7 @@ class CreateStories < ActiveRecord::Migration[5.0]
       t.references :manga, foreign_key: true
       t.references :no_t, foreign_key:true
       t.string :title
+      t.text :image
       t.timestamps
     end
   end
