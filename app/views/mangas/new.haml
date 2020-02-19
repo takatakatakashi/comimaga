@@ -3,6 +3,9 @@
     = f.text_field :title, placeholder: "タイトル"
     = f.text_field :comment, placeholder: "コメント"
     = f.text_field :author, placeholder: "作者"
+    = f.fields_for :tags do |tag|
+      =tag.text_field :tag, placeholder: "タグ付け       ＃---＃--- "
+      
     = f.file_field :image
     = f.submit "送信"
     

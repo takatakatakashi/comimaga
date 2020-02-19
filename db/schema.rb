@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200213044401) do
+ActiveRecord::Schema.define(version: 20200212105526) do
 
   create_table "evaluates", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id"
@@ -44,8 +44,9 @@ ActiveRecord::Schema.define(version: 20200213044401) do
 
   create_table "mangas", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
-    t.text     "imaga",      limit: 65535
+    t.text     "image",      limit: 65535
     t.string   "comment"
+    t.string   "author"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
   end
@@ -54,8 +55,10 @@ ActiveRecord::Schema.define(version: 20200213044401) do
     t.text     "cover",      limit: 65535
     t.string   "title"
     t.string   "comment"
+    t.integer  "manga_id"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.index ["manga_id"], name: "index_no_ts_on_manga_id", using: :btree
   end
 
   create_table "reads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -70,10 +73,13 @@ ActiveRecord::Schema.define(version: 20200213044401) do
 
   create_table "stories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "manga_id"
+    t.integer  "no_t_id"
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "image",      limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.index ["manga_id"], name: "index_stories_on_manga_id", using: :btree
+    t.index ["no_t_id"], name: "index_stories_on_no_t_id", using: :btree
   end
 
   create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -85,6 +91,8 @@ ActiveRecord::Schema.define(version: 20200213044401) do
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "name"
+    t.integer  "moeny"
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -101,8 +109,10 @@ ActiveRecord::Schema.define(version: 20200213044401) do
   add_foreign_key "images", "stories"
   add_foreign_key "likes", "mangas"
   add_foreign_key "likes", "users"
+  add_foreign_key "no_ts", "mangas"
   add_foreign_key "reads", "stories"
   add_foreign_key "reads", "users"
   add_foreign_key "stories", "mangas"
+  add_foreign_key "stories", "no_ts"
   add_foreign_key "tags", "mangas"
 end
