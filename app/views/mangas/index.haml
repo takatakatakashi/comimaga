@@ -1,6 +1,7 @@
 %a.post{:href => "/mangas/new"} 投稿する
 .image
   - @manga.each do |manga|
+    .title
+      = manga.title
     .content_img{:style => "background-image: url(#{manga.image});"}
-.title
-  = manga.title
+
